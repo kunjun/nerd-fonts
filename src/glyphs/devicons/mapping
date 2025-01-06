@@ -453,7 +453,7 @@ E7BF E8BF thealgorithms/thealgorithms-plain.svg thealgorithms
 E7C0 E8C0 threedsmax/threedsmax-plain.svg threedsmax
 E7C1 E8C1 threejs/threejs-original.svg threejs
 E7C2 E8C2 titaniumsdk/titaniumsdk-original.svg titaniumsdk
-E7C3 E8C3 tomcat/tomcat-original.svg tomcat
+E7C3 E8C3 tomcat/tomcat-plain.svg tomcat
 E7C4 E8C4 tortoisegit/tortoisegit-plain.svg tortoisegit
 E7C5 E8C5 towergit/towergit-plain.svg towergit
 E7C6 E8C6 traefikmesh/traefikmesh-original.svg traefikmesh
@@ -497,4 +497,4 @@ E7EB E8EB yaml/yaml-plain.svg yaml
 E7EC E8EC yarn/yarn-original.svg yarn
 E7ED E8ED yugabytedb/yugabytedb-plain.svg yugabytedb
 E7EE E8EE yunohost/yunohost-plain.svg yunohost
-E7EF E8EF zig/zig-original.svg zig
+E7EF E8EF zig/zig-plain.svg zig
