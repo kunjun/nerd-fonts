@@ -205,7 +205,7 @@ E6C7 E7C7 dropwizard/dropwizard-plain.svg dropwizard
 E6C8 E7C8 dynamodb/dynamodb-plain.svg dynamodb
 E6C9 E7C9 ecto/ecto-original.svg ecto
 E6CA E7CA elasticsearch/elasticsearch-plain.svg elasticsearch
-E6CB E7CB electron/electron-original.svg electron
+E6CB E7CB electron/electron-plain.svg electron
 E6CC E7CC eleventy/eleventy-plain.svg eleventy
 E6CD E7CD elixir/elixir-plain.svg elixir
 E6CE E7CE elm/elm-plain.svg elm
