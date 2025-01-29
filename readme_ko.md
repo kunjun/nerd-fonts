@@ -238,6 +238,8 @@ macOS (OS X)의 [Homebrew Cask](https://github.com/Homebrew/homebrew-cask)를 �
 brew install font-hack-nerd-font
 ```
 
+_On Linux you have to add `--cask` after `install`._
+
 ### `옵션 5: 저장소 클론`
 
 > 폰트의 **모든** 또는 **대부분**을 **완전히 통제**하거나, 개발에 **기여**하기 위한 최고의 옵션.

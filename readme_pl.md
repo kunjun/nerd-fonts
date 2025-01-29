@@ -313,6 +313,8 @@ Wszystkie czcionki są dostępne na [Homebrew Cask](https://github.com/Homebrew/
 brew install font-hack-nerd-font
 ```
 
+_On Linux you have to add `--cask` after `install`._
+
 ### `Opcja 5: Klonowanie Repo`
 
 > Najlepsza opcja jeśli potrzebujesz **pełnej kontroli**, **wszystkie** lub **większość** fontów, lub dodajesz **kontrybucje** deweloperskie.

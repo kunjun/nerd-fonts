@@ -237,6 +237,8 @@ Todos os tipos de letra estão disponíveis através de [Homebrew Cask](https://
 brew install font-hack-nerd-font
 ```
 
+_On Linux you have to add `--cask` after `install`._
+
 ### `Opção 5: Dar clone ao repositório`
 
 > Melhor opção para obter **controlo total**, **total** ou **maioritário** dos tipos de letra, ou para **contribuir** para o desenvolvimento do projeto.

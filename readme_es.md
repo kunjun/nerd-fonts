@@ -249,6 +249,8 @@ Todas las fuentes están disponibles en [Homebrew Cask](https://github.com/Homeb
 brew install font-hack-nerd-font
 ```
 
+_On Linux you have to add `--cask` after `install`._
+
 ### `Opción 5: Clonar el repo`
 
 > Es la mejor opción si quieres **control completo**, **todas** o **la mayoría** de las fuentes, o **contribuir** al desarrollo.

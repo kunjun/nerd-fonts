@@ -258,6 +258,8 @@ _注_: **Requires cloning** the repo as of now
 brew install font-hack-nerd-font
 ```
 
+_On Linux you have to add `--cask` after `install`._
+
 ### `选项5: 克隆 Repo`
 
 > 适用于要使用 **完全控制**, **所有** 或者 **多数** 字体的情况，或者为Nerd Fonts的开发 **添一份力**的情况。

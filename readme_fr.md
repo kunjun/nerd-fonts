@@ -318,6 +318,8 @@ Toutes les polices sont disponibles via [Homebrew Cask](https://github.com/Homeb
 brew install font-hack-nerd-font
 ```
 
+_On Linux you have to add `--cask` after `install`._
+
 ### `Option 5: Cloner le dépôt`
 
 > La meilleure option pour un **contrôle total**, de **toutes** ou **la plupart** des polices, ou **contribuer** au développement.

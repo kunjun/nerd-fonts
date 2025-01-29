@@ -237,6 +237,8 @@ macOS (OS X) では [Homebrew Cask](https://github.com/Homebrew/homebrew-cask) �
 brew install font-hack-nerd-font
 ```
 
+_On Linux you have to add `--cask` after `install`._
+
 ### `その 5: リポジトリをクローンする`
 
 > **全てを管理したい**、または、**全て**のフォントが欲しい、または、開発に**貢献したい**場合に一番適した選択肢です。

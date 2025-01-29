@@ -229,6 +229,8 @@ All fonts are available via [Homebrew Cask](https://github.com/Homebrew/homebrew
 brew install font-hack-nerd-font
 ```
 
+_On Linux you have to add `--cask` after `install`._
+
 ### `Option 3: Unofficial Chocolatey or Scoop Repositories`
 
 > Option for **Windows** and wanting to use **Chocolatey** or **Scoop**.

@@ -241,6 +241,8 @@ Tutti i font sono disponibili via la [Homebrew Cask](https://github.com/Homebrew
 brew install font-hack-nerd-font
 ```
 
+_On Linux you have to add `--cask` after `install`._
+
 ### `Opzione 5: Clonare il Repo`
 
 > È l‘opzione migliore per avere il **controllo completo**, **tutti** o **la maggioranza** dei font, o per **contribuire** allo sviluppo.
