@@ -82,6 +82,7 @@
       "linkPreviewFont": "atkinson-hyperlegible",
       "caskName": "atkynson-mono",
       "repoRelease": false,
+      "isMonospaced": true,
       "description": "A monospaced font designed to improve legibility and readability for individuals with low vision"
     },
     {
