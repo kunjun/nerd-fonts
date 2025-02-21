@@ -6,7 +6,7 @@
 from __future__ import absolute_import, print_function, unicode_literals
 
 # Change the script version when you edit this script:
-script_version = "4.18.1"
+script_version = "4.18.2"
 
 version = "3.3.0"
 projectName = "Nerd Fonts"
@@ -1371,6 +1371,15 @@ class font_patcher:
         logger.debug("Final font cell dimensions %d w x %d h%s",
             self.font_dim['width'], self.font_dim['height'],
             ' (with icon cell {} h)'.format(int(self.font_dim['iconheight'])) if self.font_dim['iconheight'] != self.font_dim['height'] else '')
+        try:
+            x_bb = self.sourceFont['x'].boundingBox();
+            X_bb = self.sourceFont['X'].boundingBox();
+            logger.debug("Center x-height/cell/capitals %d/%d/%d",
+                (x_bb[3] - x_bb[1]) / 2 + x_bb[1],
+                (self.font_dim['ymax'] - self.font_dim['ymin']) / 2 + self.font_dim['ymin'],
+                (X_bb[3] - X_bb[1]) / 2 + X_bb[1])
+        except:
+            pass
 
         self.xavgwidth.append(self.args.xavgwidth)
         if isinstance(self.xavgwidth[-1], int) and self.xavgwidth[-1] == 0:
