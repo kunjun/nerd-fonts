@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Nerd Fonts Version: 3.3.0
-# Script Version: 1.1.4
+# Script Version: 1.2.0
 # Iterates over all patched fonts directories
 # converts all non markdown readmes to markdown (e.g., txt, rst) using pandoc
 # adds information on additional-variations and complete font variations
@@ -22,6 +22,16 @@ function appendGeneralInfo {
   local dest=$1; shift
   local fontname=$1; shift
   local has_repo=$1; shift
+  local is_propo=$1; shift
+  if [ -n "${is_propo}" ]
+  then
+    {
+      printf "\n## Terminal usage\n\n"
+      printf "This font is not monospaced! The letter width differs and that will\n"
+      printf "probably look strange in a terminal where each letter has to fit\n"
+      printf "in the same 'cell'.\n"
+    } >> "${dest}"
+  fi
   if [ -n "${has_repo}" ]
   then
     downloadfrom="Or download the development version from the folders here"
@@ -121,6 +131,11 @@ do
     then
         release_to_repo=TRUE
     fi
+    unset is_not_monospaced
+    if [ "$(echo "$fontdata" | jq .isMonospaced)" != "true" ]
+    then
+        is_not_monospaced=TRUE
+    fi
   fi
 
   mapfile -t RST < <(find "$searchdir" -type f -iname 'readme.rst')
@@ -170,6 +185,6 @@ do
     } >> "$to"
   fi
   appendRfnInfo "$config_rfn" "$config_rfn_substitue" "$config_rfn_exception" "$sd" "$to"
-  appendGeneralInfo "$to" "$base_directory" "$release_to_repo"
+  appendGeneralInfo "$to" "$base_directory" "$release_to_repo" "$is_not_monospaced"
 
 done
