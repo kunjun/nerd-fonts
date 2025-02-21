@@ -1363,14 +1363,14 @@ class font_patcher:
             self.font_dim['xmin'] = self.args.cellopt[0]
             self.font_dim['xmax'] = self.args.cellopt[1]
             self.font_dim['width'] = self.args.cellopt[1]
-        logger.debug("Final font cell dimensions %d w x %d h%s",
-            self.font_dim['width'], self.font_dim['height'],
-            ' (with icon cell {} h)'.format(int(self.font_dim['iconheight'])) if self.font_dim['iconheight'] != self.font_dim['height'] else '')
         if self.args.cellopt:
-            logger.info("Cell coordinates %s%d:%d:%d:%d",
+            logger.info("Cell coordinates (Xmin:Xmax:Ymin:Ymax) %s%d:%d:%d:%d",
                 '' if not isinstance(self.args.cellopt, list) else 'overridden with ',
                 self.font_dim['xmin'], self.font_dim['width'],
                 self.font_dim['ymax'] - self.font_dim['height'], self.font_dim['ymax'])
+        logger.debug("Final font cell dimensions %d w x %d h%s",
+            self.font_dim['width'], self.font_dim['height'],
+            ' (with icon cell {} h)'.format(int(self.font_dim['iconheight'])) if self.font_dim['iconheight'] != self.font_dim['height'] else '')
 
         self.xavgwidth.append(self.args.xavgwidth)
         if isinstance(self.xavgwidth[-1], int) and self.xavgwidth[-1] == 0:
