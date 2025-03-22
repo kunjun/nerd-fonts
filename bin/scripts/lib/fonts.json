@@ -46,6 +46,21 @@
       "description": "A small, monospace, outline font that is geometrically regular and simple"
     },
     {
+      "unpatchedName": "Adwaita Mono",
+      "licenseId": "OFL-1.1-no-RFN",
+      "RFN": false,
+      "version": "48.2",
+      "patchedName": "AdwaitaMono",
+      "folderName": "AdwaitaMono",
+      "imagePreviewFont": "AdwaitaMono Nerd Font",
+      "imagePreviewFontSource": "AdwaitaMono/AdwaitaMoon-Regular.ttf",
+      "linkPreviewFont": "adwaita-mono",
+      "caskName": "adwaita-mono",
+      "repoRelease": false,
+      "isMonospaced": true,
+      "description": "The monospace typeface for GNOME"
+    },
+    {
       "unpatchedName": "Anonymous Pro",
       "licenseId": "OFL-1.1-RFN",
       "RFN": true,
