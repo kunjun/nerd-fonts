@@ -4,7 +4,7 @@
 # and updates font files.
 # It is designed to be ran from the ./src/unpatched-fonts/MartianMono dir.
 
-FONT_VERSION=1.0.0
+FONT_VERSION=1.1.0
 TMP_DIR=$(mktemp -d)
 
 set -e
