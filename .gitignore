@@ -20,6 +20,8 @@ font-patcher-log.txt
 # Non-Repo-Released fonts, see fonts.json:
 patched-fonts/0xProto/*
 !patched-fonts/0xProto/README.md
+patched-fonts/AtkinsonMono/*
+!patched-fonts/AtkinsonMono/README.md
 patched-fonts/CascadiaMono/*
 !patched-fonts/CascadiaMono/README.md
 patched-fonts/CommitMono/*
