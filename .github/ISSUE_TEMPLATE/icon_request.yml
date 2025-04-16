@@ -43,7 +43,7 @@ body:
   - type: textarea
     attributes:
       label: Description
-      description: Which icon do you think should be added. Give name, links to it's project, include the icon as image if possible.
+      description: Which icon do you think should be added. Give name, links to its project, include the icon as image if possible.
 
   - type: textarea
     attributes:
