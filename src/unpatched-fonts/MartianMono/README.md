@@ -11,4 +11,4 @@ The available widths at Nerd Fonts are:
 
 The font filenames are changed to be a bit more expressive.
 
-Version: 1.0.0
+Version: 1.1.0

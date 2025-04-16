@@ -160,7 +160,7 @@ A preview of all fonts can be found [here](https://www.nerdfonts.com/font-downlo
 | [Lekton Nerd Font][p-lekton]                      | [Lekton][f-lekton]                     | 34         | NO   |
 | [Literation Nerd Font][p-liberation]              | [Liberation][f-liberation]             | 2.1.5      | YES  |
 | [Lilex Nerd Font][p-lilex]                        | [Lilex][f-lilex]                       | 2.600      | NO   |
-| [MartianMono Nerd Font][p-martian]                | [MartianMono][f-martian]               | 1.0.0      | NO   |
+| [MartianMono Nerd Font][p-martian]                | [MartianMono][f-martian]               | 1.1.0      | NO   |
 | [Meslo Nerd Font][p-meslo]                        | [Meslo][f-meslo]                       | 1.21       | NO   |
 | [Monaspice Nerd Font][p-monaspace]                | [Monaspace][f-monaspace]               | 1.101      | YES  |
 | [Monofur Nerd Font][p-monofur]                    | Monofur (Tobias B Koehler)             | 1.0        | NO   |
