@@ -41,7 +41,7 @@ font_files=( \
     'AurulentSansMono/AurulentSansMono-Regular.otf' \
     'BigBlueTerminal/BigBlue_TerminalPlus.ttf' \
     'BitstreamVeraSansMono/Regular/VeraMono.ttf' \
-    'CascadiaCode/Regular/CascadiaCode-Regular-vtt.ttf' \
+    'CascadiaCode/CascadiaCode-Regular-vtt.ttf' \
     'CodeNewRoman/Regular/Code New Roman-Regular.otf' \
     'ComicShannsMono/ComicShannsMono-Regular.otf' \
     'Cousine/Regular/Cousine-Regular.ttf' \
