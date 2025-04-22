@@ -1586,17 +1586,11 @@ class font_patcher:
                     scale_ratio_x = scale_ratio_x * xy_ratio_max / xy_ratio
 
             if scale_ratio_x != 1.0 or scale_ratio_y != 1.0:
+                scale_ratio_x *= self.sourceFont.em / (self.sourceFont.em + 1) # scale a tiny bit too small to avoid rounding problems
                 self.sourceFont[currentSourceFontGlyph].transform(psMat.scale(scale_ratio_x, scale_ratio_y))
 
             # Drop nonintegral part of nodes' coordinates; ttf will do it anyhow, otf will be much smaller
             self.sourceFont[currentSourceFontGlyph].round()
-            if self.args.single:
-                (xmin, _, xmax, _) = self.sourceFont[currentSourceFontGlyph].boundingBox()
-                dest_width = self.font_dim['width'] * (1 + (overlap or 0))
-                if int(xmax - xmin) > dest_width:
-                    self.sourceFont.paste()
-                    self.sourceFont[currentSourceFontGlyph].transform(
-                            psMat.scale(scale_ratio_x * (dest_width / (dest_width + 1)), scale_ratio_y))
 
             # We pasted and scaled now we want to align/move
             # Use the dimensions from the newly pasted and stretched glyph to avoid any rounding errors
