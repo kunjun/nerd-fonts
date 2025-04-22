@@ -1588,6 +1588,16 @@ class font_patcher:
             if scale_ratio_x != 1.0 or scale_ratio_y != 1.0:
                 self.sourceFont[currentSourceFontGlyph].transform(psMat.scale(scale_ratio_x, scale_ratio_y))
 
+            # Drop nonintegral part of nodes' coordinates; ttf will do it anyhow, otf will be much smaller
+            self.sourceFont[currentSourceFontGlyph].round()
+            if self.args.single:
+                (xmin, _, xmax, _) = self.sourceFont[currentSourceFontGlyph].boundingBox()
+                dest_width = self.font_dim['width'] * (1 + (overlap or 0))
+                if int(xmax - xmin) > dest_width:
+                    self.sourceFont.paste()
+                    self.sourceFont[currentSourceFontGlyph].transform(
+                            psMat.scale(scale_ratio_x * (dest_width / (dest_width + 1)), scale_ratio_y))
+
             # We pasted and scaled now we want to align/move
             # Use the dimensions from the newly pasted and stretched glyph to avoid any rounding errors
             sym_dim = get_glyph_dimensions(self.sourceFont[currentSourceFontGlyph])
@@ -1675,9 +1685,6 @@ class font_patcher:
                 # - Set width
                 # - Calculate and set new right_side_bearing
                 self.sourceFont[currentSourceFontGlyph].width = int(width)
-
-            # Drop nonintegral part of nodes' coordinates; ttf will do it anyhow, otf will be much smaller
-            self.sourceFont[currentSourceFontGlyph].round()
 
             # Check if the inserted glyph is scaled correctly for monospace
             if self.args.single:
