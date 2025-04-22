@@ -6,7 +6,7 @@
 from __future__ import absolute_import, print_function, unicode_literals
 
 # Change the script version when you edit this script:
-script_version = "4.18.2"
+script_version = "4.19.0"
 
 version = "3.3.0"
 projectName = "Nerd Fonts"
@@ -1675,6 +1675,9 @@ class font_patcher:
                 # - Set width
                 # - Calculate and set new right_side_bearing
                 self.sourceFont[currentSourceFontGlyph].width = int(width)
+
+            # Drop nonintegral part of nodes' coordinates; ttf will do it anyhow, otf will be much smaller
+            self.sourceFont[currentSourceFontGlyph].round()
 
             # Check if the inserted glyph is scaled correctly for monospace
             if self.args.single:
