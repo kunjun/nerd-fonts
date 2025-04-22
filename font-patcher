@@ -1070,9 +1070,8 @@ class font_patcher:
             range(0xf221, 0xf22d + 1), # gender or so
             range(0xf255, 0xf25b + 1), # hand symbols
         ]}
-        HEAVY_SCALE_LIST = {'ShiftMode': 'y', 'ScaleGlyph': 0x2771, # widest bracket, horizontally
-            'GlyphsToScale': [
-                (0x276c, 0x2771) # all
+        HEAVY_SCALE_LIST = {'ShiftMode': 'xy', 'ScaleGroups': [
+            range(0x276c, 0x2771+1)
         ]}
         OCTI_SCALE_LIST = {'ShiftMode': '', 'ScaleGroups': [
                 [*range(0xf03d, 0xf040 + 1), 0xf019, 0xf030, 0xf04a, 0xf051,  0xf071, 0xf08c ], # arrows
