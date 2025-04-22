@@ -116,7 +116,7 @@ jobs:
       - name: Patcher OTF, Bold variant, and RFN compliance
         run: |
           mkdir -p $GITHUB_WORKSPACE/temp/
-          fontforge --script ./font-patcher src/unpatched-fonts/CascadiaCode/Bold/CascadiaCode-Bold-vtt.ttf \
+          fontforge --script ./font-patcher src/unpatched-fonts/CascadiaCode/CascadiaCode-Bold-vtt.ttf \
           --complete --quiet --no-progressbars --outputdir $GITHUB_WORKSPACE/temp/
 
       - name: Check if patched font generated
