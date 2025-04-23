@@ -6,7 +6,7 @@
 from __future__ import absolute_import, print_function, unicode_literals
 
 # Change the script version when you edit this script:
-script_version = "4.19.0"
+script_version = "4.20.2"
 
 version = "3.3.0"
 projectName = "Nerd Fonts"
@@ -1070,25 +1070,24 @@ class font_patcher:
             range(0xf221, 0xf22d + 1), # gender or so
             range(0xf255, 0xf25b + 1), # hand symbols
         ]}
-        HEAVY_SCALE_LIST = {'ShiftMode': 'y', 'ScaleGlyph': 0x2771, # widest bracket, horizontally
-            'GlyphsToScale': [
-                (0x276c, 0x2771) # all
+        HEAVY_SCALE_LIST = {'ShiftMode': 'xy', 'ScaleGroups': [
+            range(0x276c, 0x2771+1)
         ]}
         OCTI_SCALE_LIST = {'ShiftMode': '', 'ScaleGroups': [
-                [*range(0xf03d, 0xf040 + 1), 0xf019, 0xf030, 0xf04a, 0xf051,  0xf071, 0xf08c ], # arrows
-                [0xF0E7, # Smily and ...
-                    0xf044, 0xf05a, 0xf05b, 0xf0aa, # triangles
-                    0xf052, 0xf053, 0xf296, 0xf2f0, # small stuff
-                    0xf078, 0xf0a2, 0xf0a3, 0xf0a4, # chevrons
-                    0xf0ca, 0xf081, 0xf092, # dash, X, github-text
-                ],
-                [0xf09c, 0xf09f, 0xf0de], # bells
-                range(0xf2c2, 0xf2c5 + 1), # move to
-                [0xf07b, 0xf0a1, 0xf0d6, 0xf306], # bookmarks
+            [*range(0xf03d, 0xf040 + 1), 0xf019, 0xf030, 0xf04a, 0xf051,  0xf071, 0xf08c ], # arrows
+            [0xF0E7, # Smily and ...
+                0xf044, 0xf05a, 0xf05b, 0xf0aa, # triangles
+                0xf052, 0xf053, 0xf296, 0xf2f0, # small stuff
+                0xf078, 0xf0a2, 0xf0a3, 0xf0a4, # chevrons
+                0xf0ca, 0xf081, 0xf092, # dash, X, github-text
+            ],
+            [0xf09c, 0xf09f, 0xf0de], # bells
+            range(0xf2c2, 0xf2c5 + 1), # move to
+            [0xf07b, 0xf0a1, 0xf0d6, 0xf306], # bookmarks
         ]}
         PROGR_SCALE_LIST = {'ShiftMode': 'xy', 'ScaleGroups': [
-                range(0xedff, 0xee05 + 1), # boxes... with helper glyph for Y padding
-                range(0xee06, 0xee0b + 1), # circles
+            range(0xedff, 0xee05 + 1), # boxes... with helper glyph EDFF for Y padding
+            range(0xee06, 0xee0b + 1), # circles
         ]}
         WEATH_SCALE_LIST = {'ShiftMode': '', 'ScaleGroups': [
             [0xf03c, 0xf042, 0xf045 ], # degree signs
@@ -1622,12 +1621,17 @@ class font_patcher:
             elif sym_attr['align']:
                 # First find the baseline x-alignment (left alignment amount)
                 x_align_distance = self.font_dim['xmin'] - sym_dim['xmin']
+                if self.args.nonmono and 'pa' in stretch:
+                    cell_width = sym_dim['advance'] or sym_dim['width']
+                else:
+                    cell_width = self.font_dim['width']
                 if sym_attr['align'] == 'c':
                     # Center align
-                    x_align_distance += (self.font_dim['width'] / 2) - (sym_dim['width'] / 2)
+                    x_align_distance += (cell_width / 2) - (sym_dim['width'] / 2)
                 elif sym_attr['align'] == 'r':
                     # Right align
-                    x_align_distance += self.font_dim['width'] * self.get_target_width(stretch) - sym_dim['width']
+                    # (not really supported with pa scaling and 2x stretch in NFP)
+                    x_align_distance += cell_width * self.get_target_width(stretch) - sym_dim['width']
                 if not overlap:
                     # If symbol glyph is wider than target font cell, just left-align
                     x_align_distance = max(self.font_dim['xmin'] - sym_dim['xmin'], x_align_distance)
