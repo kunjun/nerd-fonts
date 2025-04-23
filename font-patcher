@@ -6,7 +6,7 @@
 from __future__ import absolute_import, print_function, unicode_literals
 
 # Change the script version when you edit this script:
-script_version = "4.18.2"
+script_version = "4.19.0"
 
 version = "3.3.0"
 projectName = "Nerd Fonts"
@@ -1586,7 +1586,11 @@ class font_patcher:
                     scale_ratio_x = scale_ratio_x * xy_ratio_max / xy_ratio
 
             if scale_ratio_x != 1.0 or scale_ratio_y != 1.0:
+                scale_ratio_x *= self.sourceFont.em / (self.sourceFont.em + 1) # scale a tiny bit too small to avoid rounding problems
                 self.sourceFont[currentSourceFontGlyph].transform(psMat.scale(scale_ratio_x, scale_ratio_y))
+
+            # Drop nonintegral part of nodes' coordinates; ttf will do it anyhow, otf will be much smaller
+            self.sourceFont[currentSourceFontGlyph].round()
 
             # We pasted and scaled now we want to align/move
             # Use the dimensions from the newly pasted and stretched glyph to avoid any rounding errors
