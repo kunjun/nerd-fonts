@@ -122,7 +122,7 @@ A preview of all fonts can be found [here](https://www.nerdfonts.com/font-downlo
 | [Agave Nerd Font][p-agave]                        | [Agave][f-agave]                       | 37         | NO   |
 | [AnonymicePro Nerd Font][p-anonymous-pro]         | [Anonymous Pro][f-a-pro]               | 1.002      | YES  |
 | [Arimo Nerd Font][p-arimo]                        | [Arimo][f-arimo]                       | 1.33       | NO   |
-| [AtynsonMono Nerd Font][p-atkinson-mono]          | [Atkinson Hyperlegible Mono][f-atkinson]| 2.001     | YES  |
+| [AtkynsonMono Nerd Font][p-atkinson-mono]         | [Atkinson Hyperlegible Mono][f-atkinson]| 2.001     | YES  |
 | [AurulentSansMono Nerd Font][p-aurulent]          | Aurulent Sans Mono (Stephen G. Hartke) |            | NO   |
 | [BigBlueTerminal Nerd Font][p-bigblueterm]        | BigBlueTerminal (VileR)                |            | NO   |
 | [BitstromWera Nerd Font][p-bitstream]             | Vera Sans Mono (Bitstream Inc)         | 1.1        | YES  |
