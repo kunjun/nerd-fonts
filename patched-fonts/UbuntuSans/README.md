@@ -6,7 +6,7 @@ For more information have a look at the upstream website:
 * https://github.com/canonical/Ubuntu-Sans-fonts
 * https://github.com/canonical/Ubuntu-Sans-Mono-fonts
 
-Version: v1.004
+Version: v1.006
 
 ## Which font?
 

@@ -19,7 +19,7 @@ Open the font with Microsoft's VisualTrueType (VTT) and apply Light Latin Autohi
 The issue is known upstream and will probably be fixed. But until it is fixed we need
 to do this manual process on all source updates.
 
-Version: 2111.01
+Version: 2407.24
 
 ## Why `CaskaydiaMono` and not `Cascadia Mono`?
 

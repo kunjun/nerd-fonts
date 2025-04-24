@@ -10,6 +10,12 @@ The `ldot` ligatures are removed because they map to only one advance width.
 
 Version: 2.001
 
+## Terminal usage
+
+This font is not monospaced! The letter width differs and that will
+probably look strange in a terminal where each letter has to fit
+in the same 'cell'.
+
 ## Which font?
 
 ### TL;DR

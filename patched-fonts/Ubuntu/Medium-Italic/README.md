@@ -24,6 +24,12 @@ Condensed (3) by direct patching.
 
 The script used is in the `Condensed/` directory.
 
+## Terminal usage
+
+This font is not monospaced! The letter width differs and that will
+probably look strange in a terminal where each letter has to fit
+in the same 'cell'.
+
 ## Which font?
 
 ### TL;DR

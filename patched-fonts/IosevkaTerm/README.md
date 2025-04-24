@@ -4,7 +4,7 @@
 
 For more information have a look at the upstream website: https://github.com/be5invis/Iosevka
 
-Version: 29.0.4
+Version: 33.2.1
 
 ## Which font?
 
