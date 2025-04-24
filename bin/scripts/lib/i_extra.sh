@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Progress indicators from Fira Code (12 icons)
 # Codepoints: EE00-EE0B
-# Nerd Fonts Version: 3.3.0
+# Nerd Fonts Version: 3.4.0
 # Script Version: 1.0.0
 test -n "$__i_prog_loaded" && return || __i_prog_loaded=1
 i='' i_extra_progress_empty_left=$i
