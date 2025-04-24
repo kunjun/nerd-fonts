@@ -6,7 +6,7 @@
 from __future__ import absolute_import, print_function, unicode_literals
 
 # Change the script version when you edit this script:
-script_version = "4.20.2"
+script_version = "4.20.3"
 
 version = "3.3.0"
 projectName = "Nerd Fonts"
@@ -1591,6 +1591,20 @@ class font_patcher:
             # Drop nonintegral part of nodes' coordinates; ttf will do it anyhow, otf will be much smaller
             self.sourceFont[currentSourceFontGlyph].round()
 
+            if self.args.single:
+                # Check and correct the scaling after rounding (if all 3 tries fail we will get a warning later on)
+                destmaxsize = self.font_dim['width'] * max(1, 1 + (overlap or 0))
+                for increaser in range(3):
+                    (xmin, _, xmax, _) = self.sourceFont[currentSourceFontGlyph].boundingBox()
+                    sizeerror = (xmax - xmin) - destmaxsize
+                    if sizeerror <= 0:
+                        break
+                    # Start from scratch with a new unscaled glyph
+                    scale_ratio_x /= 1 + ((sizeerror + increaser) / destmaxsize)
+                    self.sourceFont.paste()
+                    self.sourceFont[currentSourceFontGlyph].transform(psMat.scale(scale_ratio_x, scale_ratio_y))
+                    self.sourceFont[currentSourceFontGlyph].round()
+
             # We pasted and scaled now we want to align/move
             # Use the dimensions from the newly pasted and stretched glyph to avoid any rounding errors
             sym_dim = get_glyph_dimensions(self.sourceFont[currentSourceFontGlyph])
@@ -1687,7 +1701,7 @@ class font_patcher:
             # Check if the inserted glyph is scaled correctly for monospace
             if self.args.single:
                 (xmin, _, xmax, _) = self.sourceFont[currentSourceFontGlyph].boundingBox()
-                if int(xmax - xmin) > self.font_dim['width'] * (1 + (overlap or 0)):
+                if (xmax - xmin) > self.font_dim['width'] * max(1, 1 + (overlap or 0)):
                     logger.warning("Scaled glyph %X wider than one monospace width (%d / %d (overlap %s))",
                         currentSourceFontGlyph, int(xmax - xmin), self.font_dim['width'], repr(overlap))
 
