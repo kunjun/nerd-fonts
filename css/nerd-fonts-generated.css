@@ -1,7 +1,7 @@
 /*
  *# [Nerd Fonts]  Website: https://www.nerdfonts.com
  *# [Nerd Fonts]  Development Website: https://github.com/ryanoasis/nerd-fonts
- *# [Nerd Fonts]  Version: 3.3.0
+ *# [Nerd Fonts]  Version: 3.4.0
  *# [Nerd Fonts]  The following is generated from the build script
  */
 
@@ -1366,6 +1366,9 @@
 }
 .nf-custom-crystal:before {
   content: "\e62f";
+}
+.nf-custom-css:before {
+  content: "\e6b8";
 }
 .nf-custom-default:before {
   content: "\e612";
@@ -2986,6 +2989,42 @@
 }
 .nf-dev-zig:before {
   content: "\e8ef";
+}
+.nf-extra-progress_empty_left:before {
+  content: "\ee00";
+}
+.nf-extra-progress_empty_mid:before {
+  content: "\ee01";
+}
+.nf-extra-progress_empty_right:before {
+  content: "\ee02";
+}
+.nf-extra-progress_full_left:before {
+  content: "\ee03";
+}
+.nf-extra-progress_full_mid:before {
+  content: "\ee04";
+}
+.nf-extra-progress_full_right:before {
+  content: "\ee05";
+}
+.nf-extra-progress_spinner_1:before {
+  content: "\ee06";
+}
+.nf-extra-progress_spinner_2:before {
+  content: "\ee07";
+}
+.nf-extra-progress_spinner_3:before {
+  content: "\ee08";
+}
+.nf-extra-progress_spinner_4:before {
+  content: "\ee09";
+}
+.nf-extra-progress_spinner_5:before {
+  content: "\ee0a";
+}
+.nf-extra-progress_spinner_6:before {
+  content: "\ee0b";
 }
 .nf-fa-500px:before {
   content: "\f26e";
