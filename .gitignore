@@ -22,8 +22,8 @@ patched-fonts/0xProto/*
 !patched-fonts/0xProto/README.md
 patched-fonts/AdwaitaMono/*
 !patched-fonts/AdwaitaMono/README.md
-patched-fonts/AtkinsonMono/*
-!patched-fonts/AtkinsonMono/README.md
+patched-fonts/AtkinsonHyperlegibleMono/*
+!patched-fonts/AtkinsonHyperlegibleMono/README.md
 patched-fonts/CascadiaMono/*
 !patched-fonts/CascadiaMono/README.md
 patched-fonts/CommitMono/*
