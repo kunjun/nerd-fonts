@@ -1,13 +1,25 @@
 #!/usr/bin/env bash
 # Install Nerd Fonts
-__ScriptVersion="0.8"
+__ScriptVersion="1.0"
+
+# This script must run with bash 3
+# In fact it is checked against `checkbashisms` and no bashisms are
+# used, except (because the workarounds are too involved):
+#
+# - <( ) process substitution
+# - read -d option
+# - $'\0' to supply a nullbyte to read -d
+# - <<< here-string
+#
+# Note that `find` on MacOS does not know `-printf`
 
 # Default values for option variables:
 quiet=false
 mode="copy"
 clean=false
 dry=false
-extension="otf"
+extension1="otf"
+extension2="ttf"
 variant="R"
 installpath="user"
 
@@ -15,7 +27,7 @@ installpath="user"
 usage() {
   cat << EOF
 Usage: ./install.sh [-q -v -h] [[--copy | --link] --clean | --list | --remove]
-                    [--mono] [--windows] [--otf | --ttf]
+                    [--mono] [--use-proportional-glyphs] [--otf | --ttf]
                     [--install-to-user-path | --install-to-system-path ]
                     [FONT...]
 
@@ -44,8 +56,6 @@ General options:
 
   -O, --otf                     Prefer OTF font files [default].
   -T, --ttf                     Prefer TTF font files.
-
-                                (*) Feature will not work anymore
 EOF
 }
 
@@ -55,7 +65,7 @@ version() {
 }
 
 # Parse options
-optspec=":qvhclLCspOTSU-:"
+optspec=":qvhclLCspOTUS-:"
 while getopts "$optspec" optchar; do
   case "${optchar}" in
 
@@ -70,8 +80,8 @@ while getopts "$optspec" optchar; do
     C) clean=true;;
     s) variant="M";;
     p) variant="P";;
-    O) extension="otf";;
-    T) extension="ttf";;
+    O) extension1="otf"; extension2="ttf";;
+    T) extension1="ttf"; extension2="otf";;
     S) installpath="system";;
     U) installpath="user";;
 
@@ -89,8 +99,8 @@ while getopts "$optspec" optchar; do
         clean) clean=true;;
         mono) variant="M";;
         use-proportional-glyphs) variant="P";;
-        otf) extension="otf";;
-        ttf) extension="ttf";;
+        otf) extension1="otf"; extension2="ttf";;
+        ttf) extension1="ttf"; extension2="otf";;
         install-to-system-path) installpath="system";;
         install-to-user-path) installpath="user";;
         *)
@@ -115,27 +125,27 @@ version
 # Set source and target directories, default: all fonts
 sd="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 || exit ; pwd -P )"
 nerdfonts_root_dir="${sd}/patched-fonts"
-nerdfonts_dirs=("$nerdfonts_root_dir")
 
 # Accept font / directory names, to avoid installing all fonts
 if [ -n "$*" ]; then
-  nerdfonts_dirs=()
+  nerdfonts_dirs=
   for font in "${@}"; do
     if [ -n "$font" ]; then
       # Ensure that directory exists, and offer suggestions if not
-      if [[ ! -d "$nerdfonts_root_dir/$font" ]]; then
-        echo -e "Font $font doesn't exist. Options are: \\n"
-        find "$nerdfonts_root_dir" -maxdepth 1 -type d \( \! -name "$(basename "$nerdfonts_root_dir")" \) -exec basename {} \; | sort
+      if [ ! -d "$nerdfonts_root_dir/$font" ]; then
+        echo "Font $font doesn't exist. Options are:"
+        echo
+        find "$nerdfonts_root_dir" -mindepth 1 -maxdepth 1 -type d -exec basename "{}" \; | sort
         exit 255
       fi
-      nerdfonts_dirs=( "${nerdfonts_dirs[@]}" "$nerdfonts_root_dir/$font" )
+      nerdfonts_dirs="${nerdfonts_dirs}${font}/"
     fi
   done
+else
+  nerdfonts_dirs=$(find "${nerdfonts_root_dir}" -mindepth 1 -maxdepth 1 -type d -print0 | sed "s|${nerdfonts_root_dir}/||g" | tr '\0' '/')
 fi
-
-#
-# Start constructing `find` expression
-#
+# nerdfonts_dirs contains a '/' separated list of directories directly
+# under nerdfonts_root_dir to look at (it needs to end in '/')
 
 # Which Nerd Font variant
 if [ "$variant" = "M" ]; then
@@ -146,40 +156,19 @@ else
   find_filter="-not -name '*NerdFontMono*' -and -not -name '*NerdFontPropo*' -and -name '*NerdFont*'"
 fi
 
-# Find all the font files and store in array
-files=()
-for dir in "${nerdfonts_dirs[@]}"; do
-  while IFS=  read -r -d $'\0'; do
-    files+=("$REPLY")
-  done < <(echo "${find_filter} -print0" | xargs -- find "${dir}" -iname '*.[ot]tf' -type f)
-done
-
-#
-# Remove duplicates (i.e. when both otf and ttf version present)
-#
-
-# Get list of file names without extensions
-files_dedup=( "${files[@]}" )
-for i in "${!files_dedup[@]}"; do
-  files_dedup[i]="${files_dedup[$i]%.*}"
-done
-
-# Remove duplicates
-for i in "${!files_dedup[@]}"; do
-  for j in "${!files_dedup[@]}"; do
-    [ "$i" = "$j" ] && continue
-    if [ "${files_dedup[$i]}" = "${files_dedup[$j]}" ]; then
-      ext="${files[$i]##*.}"
-      # Only remove if the extension is the one we don’t want
-      if [ "$ext" != "$extension" ]; then
-        unset "${files[$i]}"
-      fi
+collect_files() {
+  # Find all the font files, return \0 separated list
+  while IFS= read -d / -r dir; do
+    if [ -n "$(echo "${find_filter}" | xargs -- find "${nerdfonts_root_dir}/${dir}" -iname "*.${extension1}" -type f)" ]; then
+      echo "${find_filter} -print0" | xargs -- find "${nerdfonts_root_dir}/${dir}" -iname "*.${extension1}" -type f
+    else
+      echo "${find_filter} -print0" | xargs -- find "${nerdfonts_root_dir}/${dir}" -iname "*.${extension2}" -type f
     fi
-  done
-done
+  done <<< "${nerdfonts_dirs}"
+}
 
 # Get target root directory
-if [[ $(uname) == 'Darwin' ]]; then
+if [ "$(uname)" = "Darwin" ]; then
   # MacOS
   sys_share_dir="/Library"
   usr_share_dir="$HOME/Library"
@@ -196,16 +185,25 @@ fi
 sys_font_dir="${sys_share_dir}/${font_subdir}/NerdFonts"
 usr_font_dir="${usr_share_dir}/${font_subdir}/NerdFonts"
 
-if [[ "system" == "$installpath" ]]; then
+if [ "system" = "$installpath" ]; then
   font_dir="${sys_font_dir}"
 else
   font_dir="${usr_font_dir}"
 fi
 
-if [ "${#files[@]}" -eq 0 ]; then
+if [ -z "$(collect_files | tr -d '\0')" ]; then
   echo "Did not find any fonts to install"
   exit 1
 fi
+
+prepare_dirs() {
+  if [ "$clean" = true ]; then
+    [ "$quiet" = false ] && rm -rfv "$font_dir"
+    [ "$quiet" = true ] && rm -rf "$font_dir"
+  fi
+  [ "$quiet" = false ] && mkdir -pv "$font_dir"
+  [ "$quiet" = true ] && mkdir -p "$font_dir"
+}
 
 #
 # Take the desired action
@@ -213,33 +211,26 @@ fi
 case $mode in
 
   list)
-    for file in "${files[@]}"; do
+    while IFS= read -d $'\0' -r file; do
       file=$(basename "$file")
       echo "$font_dir/${file#"$nerdfonts_root_dir"/}"
-    done
+    done < <(collect_files)
     exit 0
     ;;
 
-  copy | link)
-    if [ "$clean" = true ]; then
-      [ "$quiet" = false ] && rm -rfv "$font_dir"
-      [ "$quiet" = true ] && rm -rf "$font_dir"
-    fi
-    [ "$quiet" = false ] && mkdir -pv "$font_dir"
-    [ "$quiet" = true ] && mkdir -p "$font_dir"
-    case $mode in
-      copy)
-        [ "$quiet" = false ] && cp -fv "${files[@]}" "$font_dir"
-        [ "$quiet" = true ] && cp -f "${files[@]}" "$font_dir"
-        ;;
-      link)
-        [ "$quiet" = false ] && ln -sfv "${files[@]}" "$font_dir"
-        [ "$quiet" = true ] && ln -sf "${files[@]}" "$font_dir"
-        ;;
-    esac;;
+  copy)
+    prepare_dirs
+    [ "$quiet" = false ] && (collect_files | xargs --null -- cp -fv -T "$font_dir")
+    [ "$quiet" = true ] && (collect_files | xargs --null -- cp -f  -T "$font_dir")
+    ;;
+  link)
+    prepare_dirs
+    [ "$quiet" = false ] && (collect_files | xargs --null -- ln -sfv -t "$font_dir")
+    [ "$quiet" = true ] && (collect_files | xargs --null -- ln -sf -t "$font_dir")
+    ;;
 
   remove)
-    if [[ "true" == "$dry" ]]; then
+    if [ "true" = "$dry" ]; then
       echo "Dry run. Would issue these commands:"
       [ "$quiet" = false ] && echo rm -rfv "$sys_font_dir" "$usr_font_dir"
       [ "$quiet" = true ] && echo rm -rf "$sys_font_dir" "$usr_font_dir"
@@ -253,8 +244,8 @@ case $mode in
 esac
 
 # Reset font cache on Linux
-if [[ -n $(command -v fc-cache) ]]; then
-  if [[ "true" == "$dry" ]]; then
+if [ -n "$(command -v fc-cache)" ]; then
+  if [ "true" = "$dry" ]; then
     [ "$quiet" = false ] && echo fc-cache -vf "$font_dir"
     [ "$quiet" = true ] && echo fc-cache -f "$font_dir"
   else
